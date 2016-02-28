@@ -3,6 +3,7 @@ package com.example.user.fyp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,32 +21,30 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class LoginActivity extends AppCompatActivity {
-    User[] user;
-    EditText pwd,userName;
-    Button btnReset,btnLogin;
+    User[] user = new User[8];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        btnReset= (Button) this.findViewById(R.id.btnReset);
-        btnLogin = (Button) this.findViewById(R.id.btnLogin);
+        Button btnReset = (Button) this.findViewById(R.id.btnReset);
+        Button btnLogin = (Button) this.findViewById(R.id.btnLogin);
 
         btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View view) {
                 LoginActivity.this.finish();
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View view) {
-                pwd = (EditText) findViewById(R.id.edtPwd);
-                userName = (EditText) findViewById(R.id.edtUserid);
+                Log.d("All Products: ", "11111111111111");
+                EditText pwd = (EditText) findViewById(R.id.edtPwd);
+                EditText userName = (EditText) findViewById(R.id.edtUserid);
                 boolean check = true;
                 try {
                     getJson();
                 } catch (Exception e) {
+                    Log.d("All Products: ", "22222222222222");
                     e.printStackTrace();
                 }
                 for (int i = 0; i < user.length; i++) {
@@ -80,7 +79,6 @@ public class LoginActivity extends AppCompatActivity {
                 int id 	               	= json.getJSONArray("user").getJSONObject(i).getInt("id");
                 String password         = json.getJSONArray("user").getJSONObject(i).getString("password");
                 String use_name         = json.getJSONArray("user").getJSONObject(i).getString("use_name");
-                user[i] = new User(id, password, use_name);
             }
         } catch (Exception e1) {
             e1.printStackTrace();
