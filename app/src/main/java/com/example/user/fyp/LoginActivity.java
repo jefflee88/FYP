@@ -1,5 +1,6 @@
 package com.example.user.fyp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,13 +22,14 @@ import java.io.InputStreamReader;
 public class LoginActivity extends AppCompatActivity {
     User[] user;
     EditText pwd,userName;
-    Button btnReset = (Button) this.findViewById(R.id.btnReset);
-    Button btnLogin = (Button) this.findViewById(R.id.btnLogin);
+    Button btnReset,btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        btnReset= (Button) this.findViewById(R.id.btnReset);
+        btnLogin = (Button) this.findViewById(R.id.btnLogin);
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (Integer.parseInt(userName.getText().toString()) == user[i].getId() && ((pwd.getText().toString()).equals(user[i].getPassword()))) {
                         Toast.makeText(getApplicationContext(), "Hello " + user[i].getUse_name() + "!!", Toast.LENGTH_SHORT).show();
                         check = false;
+                        Intent Intent = new Intent(view.getContext(), MainMenuActivity.class);
+                        startActivityForResult(Intent, 0);
                         break;
                     } else {
                         check = true;
