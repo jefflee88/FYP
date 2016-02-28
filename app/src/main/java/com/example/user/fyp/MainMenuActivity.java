@@ -11,7 +11,7 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
 
-        ImageView imgLogo= (ImageView) findViewById(R.id.imgLogo);
+        ImageView imgLogo= (ImageView)findViewById(R.id.imgLogo);
         imgLogo.setImageResource(R.drawable.jtg_logo);
 
 
