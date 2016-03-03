@@ -1,6 +1,7 @@
 package com.example.user.fyp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,7 +46,9 @@ public class LoginActivity extends AppCompatActivity {
                 EditText userName = (EditText) findViewById(R.id.edtUserid);
                 boolean check = true;
                 try {
-                    getJson();
+                    //getJson();
+                    Log.d("All Products: ", "666666666666");
+                    new LoadAllUsers().execute();
                     Log.d("All Products: ", "77777777777777777777");
                 } catch (Exception e) {
                     Log.d("All Products: ", "22222222222222");
@@ -77,26 +80,31 @@ public class LoginActivity extends AppCompatActivity {
        // BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
         //=============
-        String url = "http://10.0.2.2/fyp_connect/get_all_user.php?";
+        String url = "http://10.0.2.2/fyp_connect/get_all_user.php";
         URL urlObj = new URL(url);
         HttpURLConnection client = (HttpURLConnection) urlObj.openConnection();
 //        client.setDoOutput(true);
-//        client.setDoInput(true);
-//        client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+       client.setDoInput(true);
+      client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+        Log.d("All Products: ", "33333333333");
         client.setRequestMethod("GET");
+        Log.d("All Products: ", "33333333333434333434");
         //client.setFixedLengthStreamingMode(request.toString().getBytes("UTF-8").length);
         client.connect();
         // Log.d("doInBackground(Request)", request.toString());
+        Log.d("All Products: ", "444444444444");
 
         InputStream input = client.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         StringBuilder result = new StringBuilder();
         String line;
+        Log.d("All Products: ", "5555555555");
 
         while ((line = reader.readLine()) != null) {
             result.append(line);
         }
         String reply = result.toString();
+
         //=============
 
         JSONObject json = new JSONObject(reply);
@@ -111,5 +119,48 @@ public class LoginActivity extends AppCompatActivity {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
+    }
+
+    class LoadAllUsers extends AsyncTask<String, String, String> {
+
+        protected void onPreExecute() {
+
+        }
+
+        protected String doInBackground(String ... args) {
+            try {
+                Log.d("All Products: ", "in asynctask ---0000000000");
+                String url = "http://10.0.2.2/fyp_connect/get_all_user.php";
+                URL urlObj = new URL(url);
+                HttpURLConnection client = (HttpURLConnection) urlObj.openConnection();
+//        client.setDoOutput(true);
+                client.setDoInput(true);
+                client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                Log.d("All Products: ", "in asynctask --- 33333333333");
+                client.setRequestMethod("GET");
+                Log.d("All Products: ", "in asynctask --- 33333333333434333434");
+                //client.setFixedLengthStreamingMode(request.toString().getBytes("UTF-8").length);
+                client.connect();
+                // Log.d("doInBackground(Request)", request.toString());
+                Log.d("All Products: ", "in asynctask --- 444444444444");
+
+
+                InputStream input = client.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                StringBuilder result = new StringBuilder();
+                String line;
+                Log.d("All Products: ", "in asynctask --- 5555555555");
+
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+                String reply = result.toString();
+                Log.d("reply", reply);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            return null;
+        }
+
     }
 }
