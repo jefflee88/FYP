@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.fyp.SearchFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=" Please enter keywords to search :"
+        android:textStyle="bold"
+        android:id="@+id/textView2"
+        android:paddingTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtSearch"
+        android:hint=" ( e.g. food name, types,  districts... )"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=" The result only show :        (Optional)"
+        android:textStyle="bold"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/edtSearch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingTop="20dp"/>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/tr1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/textView3">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Food Details"
+            android:textStyle="italic"
+            android:id="@+id/rdoFood"
+            android:paddingRight="50dp"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:text="Restaurant Details"
+            android:id="@+id/rdoRest" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/tr1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_horizontal"
+        android:weightSum="1"
+        android:paddingTop="10dp"
+        android:id="@+id/tr2">
+
+        <Button
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:text="Search Now"
+            android:id="@+id/btnSearch"
+            android:background="@drawable/button_style"
+            style="@style/button_text" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/tr2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_horizontal"
+        android:weightSum="1"
+        android:paddingTop="10dp"
+        android:id="@+id/tr3">
+
+        <Button
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:text="Advanced Search"
+            android:id="@+id/btnAdvancedSearch"
+            android:background="@drawable/button_style"
+            style="@style/button_text" />
+
+    </TableRow>
+
+</RelativeLayout>
