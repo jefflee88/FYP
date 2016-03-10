@@ -52,7 +52,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 for (int i = 0; i < user.length; i++) {
-                    if (Integer.parseInt(userName.getText().toString()) == user[i].getId() && ((pwd.getText().toString()).equals(user[i].getPassword()))) {
+                    boolean userNameOK = Integer.parseInt(userName.getText().toString()) == user[i].getId();
+                    boolean passwordOK = pwd.getText().toString().equals(user[i].getPassword());
+                    if (userNameOK && passwordOK) {
+
+                   // if (Integer.parseInt(userName.getText().toString()) == user[i].getId() && ((pwd.getText().toString()).equals(user[i].getPassword()))) {
                         Toast.makeText(getApplicationContext(), "Hello " + user[i].getUse_name() + "!!", Toast.LENGTH_SHORT).show();
                         check = false;
                         Intent Intent = new Intent(view.getContext(), MainMenuActivity.class);
@@ -76,45 +80,15 @@ public class LoginActivity extends AppCompatActivity {
        // BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
         //=============
-        String url = "http://10.0.2.2/fyp_connect/get_all_user.php";
-        URL urlObj = new URL(url);
-        HttpURLConnection client = (HttpURLConnection) urlObj.openConnection();
-//        client.setDoOutput(true);
-       client.setDoInput(true);
-      client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-        Log.d("All Products: ", "33333333333");
-        client.setRequestMethod("GET");
-        Log.d("All Products: ", "33333333333434333434");
-        //client.setFixedLengthStreamingMode(request.toString().getBytes("UTF-8").length);
-        client.connect();
-        // Log.d("doInBackground(Request)", request.toString());
-        Log.d("All Products: ", "444444444444");
 
-        InputStream input = client.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-        StringBuilder result = new StringBuilder();
         String line;
         Log.d("All Products: ", "5555555555");
 
-        while ((line = reader.readLine()) != null) {
-            result.append(line);
-        }
-        String reply = result.toString();
 
         //=============
+        Log.d("All Products: ", "aaaaaaaaa");
 
-        JSONObject json = new JSONObject(reply);
-        Log.d("All Products: ",json.toString());
-        try {
-            for(int i=0; i<json.getJSONArray("user").length();i++){
-                int id 	               	= json.getJSONArray("user").getJSONObject(i).getInt("id");
-                String password         = json.getJSONArray("user").getJSONObject(i).getString("password");
-                String use_name         = json.getJSONArray("user").getJSONObject(i).getString("use_name");
-                user[i] = new User(id,password,use_name);
-            }
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
+
     }
 
     class LoadAllUsers extends AsyncTask<String, String, String> {
@@ -143,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 InputStream input = client.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+
                 StringBuilder result = new StringBuilder();
                 String line;
                 Log.d("All Products: ", "in asynctask --- 5555555555");
@@ -151,7 +126,25 @@ public class LoginActivity extends AppCompatActivity {
                     result.append(line);
                 }
                 String reply = result.toString();
-                Log.d("reply", reply);
+
+                Log.d("All Products: ", "ireply : " + reply);
+                JSONObject json = new JSONObject(reply);
+                Log.d("All Products: ", "ireply : " + reply);
+                try {
+                    for(int i=0; i<json.getJSONArray("user").length();i++){
+                        JSONObject jsonObj = json.getJSONArray("user").getJSONObject(i);
+                        int id 	               	= jsonObj.getInt("id");
+                        String password         = jsonObj.getString("password");
+                        String use_name         = jsonObj.getString("use_name");
+
+                        // ===
+
+                        user[i] = new User(id,password,use_name);
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
