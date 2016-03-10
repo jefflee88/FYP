@@ -55,8 +55,6 @@ public class LoginActivity extends AppCompatActivity {
                     boolean userNameOK = Integer.parseInt(userName.getText().toString()) == user[i].getId();
                     boolean passwordOK = pwd.getText().toString().equals(user[i].getPassword());
                     if (userNameOK && passwordOK) {
-
-                   // if (Integer.parseInt(userName.getText().toString()) == user[i].getId() && ((pwd.getText().toString()).equals(user[i].getPassword()))) {
                         Toast.makeText(getApplicationContext(), "Hello " + user[i].getUse_name() + "!!", Toast.LENGTH_SHORT).show();
                         check = false;
                         Intent Intent = new Intent(view.getContext(), MainMenuActivity.class);
