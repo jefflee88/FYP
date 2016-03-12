@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        new  LoadAllUsers(LoginActivity.this).execute();
         Button btnReset = (Button) this.findViewById(R.id.btnReset);
         Button btnLogin = (Button) this.findViewById(R.id.btnLogin);
 
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     //getJson();
                     Log.d("All Products: ", "666666666666");
-                    new  LoadAllUsers(LoginActivity.this).execute();
+                    //new  LoadAllUsers(LoginActivity.this).execute();
                     Log.d("All Products: ", "77777777777777777777");
                 } catch (Exception e) {
                     Log.d("All Products: ", "22222222222222");
@@ -131,10 +132,10 @@ public class LoginActivity extends AppCompatActivity {
                         // ===
 
                         user[i] = new User(id,password,use_name);
-                        LoginActivity loginActivity = (LoginActivity) Asyntaskcontext;
-                        loginActivity.user2 = user;
-                        Log.d("All Products: ", Integer.toString(user[i].getId()));
                     }
+                    LoginActivity loginActivity = (LoginActivity) Asyntaskcontext;
+                    loginActivity.user2 = user;
+                    Log.d("All Products: ", Integer.toString(user[0].getId()));
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
