@@ -1,5 +1,6 @@
 package com.example.user.fyp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
+    public User[] user2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +43,13 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     //getJson();
                     Log.d("All Products: ", "666666666666");
-                    new LoadAllUsers().execute();
+                    new  LoadAllUsers(LoginActivity.this).execute();
                     Log.d("All Products: ", "77777777777777777777");
                 } catch (Exception e) {
                     Log.d("All Products: ", "22222222222222");
                     e.printStackTrace();
                 }
 
-                User[] user2 = LoadAllUsers.getUser();
 
                 for (int i = 0; i < 2; i++) {
 
@@ -74,14 +75,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    class LoadAllUsers extends AsyncTask<String, String, String> {
-        User[] user = new User[8];
+    static class LoadAllUsers extends AsyncTask<String, String, User[]> {
+        private final Context Asyntaskcontext;
 
+        public LoadAllUsers(Context context){
+            Asyntaskcontext = context;
+        }
+
+        @Override
         protected void onPreExecute() {
 
         }
 
-        protected String doInBackground(String ... args) {
+        protected User[] doInBackground(String ... args) {
+            User [] user = new User[8];
             try {
                 Log.d("All Products: ", "in asynctask ---0000000000");
                 String url = "http://10.0.2.2/fyp_connect/get_all_user.php";
@@ -124,8 +131,9 @@ public class LoginActivity extends AppCompatActivity {
                         // ===
 
                         user[i] = new User(id,password,use_name);
+                        LoginActivity loginActivity = (LoginActivity) Asyntaskcontext;
+                        loginActivity.user2 = user;
                         Log.d("All Products: ", Integer.toString(user[i].getId()));
-                        setUser(user);
                     }
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -134,13 +142,8 @@ public class LoginActivity extends AppCompatActivity {
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-            return null;
-        }
-public  void setUser(User[] user){
-    this.user = user;
-}
-        public static User[] getUser(){
             return user;
-    }
+        }
+
     }
 }
