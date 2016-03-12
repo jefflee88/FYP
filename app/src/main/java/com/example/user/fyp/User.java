@@ -1,4 +1,4 @@
-package com.example.user.fyp.bean;
+package com.example.user.fyp;
 
 import java.io.Serializable;
 

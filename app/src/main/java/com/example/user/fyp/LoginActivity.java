@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.user.fyp.bean.User;
-
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -21,7 +19,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
-    User[] user = new User[8];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +48,17 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                for (int i = 0; i < user.length; i++) {
-                    boolean userNameOK = Integer.parseInt(userName.getText().toString()) == user[i].getId();
-                    boolean passwordOK = pwd.getText().toString().equals(user[i].getPassword());
+                User[] user2 = LoadAllUsers.getUser();
+
+                for (int i = 0; i < 2; i++) {
+
+                    Log.d("All Products: ", "userid : " + user2[0].getId());
+
+
+                    boolean userNameOK = Integer.parseInt(userName.getText().toString()) == user2[i].getId();
+                    boolean passwordOK = pwd.getText().toString().equals(user2[i].getPassword());
                     if (userNameOK && passwordOK) {
-                        Toast.makeText(getApplicationContext(), "Hello " + user[i].getUse_name() + "!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Hello " + user2[i].getUse_name() + "!!", Toast.LENGTH_SHORT).show();
                         check = false;
                         Intent Intent = new Intent(view.getContext(), MainMenuActivity.class);
                         startActivityForResult(Intent, 0);
@@ -69,27 +72,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    public void getJson() throws Exception{
-        // String url = "http://10.0.2.2/fyp_connect/get_all_user.php?";
-        // HttpClient client = new DefaultHttpClient();
 
-//        HttpGet request = new HttpGet(url);
-//        HttpResponse response = client.execute(request);
-       // BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-        //=============
-
-        String line;
-        Log.d("All Products: ", "5555555555");
-
-
-        //=============
-        Log.d("All Products: ", "aaaaaaaaa");
-
-
-    }
 
     class LoadAllUsers extends AsyncTask<String, String, String> {
+        User[] user = new User[8];
 
         protected void onPreExecute() {
 
@@ -138,6 +124,8 @@ public class LoginActivity extends AppCompatActivity {
                         // ===
 
                         user[i] = new User(id,password,use_name);
+                        Log.d("All Products: ", Integer.toString(user[i].getId()));
+                        setUser(user);
                     }
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -148,6 +136,11 @@ public class LoginActivity extends AppCompatActivity {
             }
             return null;
         }
-
+public  void setUser(User[] user){
+    this.user = user;
+}
+        public static User[] getUser(){
+            return user;
+    }
     }
 }
